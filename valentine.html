@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine's Day for Manasvi 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body, html {height:100%; font-family:'Montserrat', sans-serif; background:linear-gradient(135deg,#0f0c29,#302b63,#24243e); color:white; overflow:hidden;}
+section {display:none; height:100vh; width:100vw; justify-content:center; align-items:center; text-align:center; flex-direction:column; padding:20px;}
+section.active {display:flex;}
+.card {background:rgba(255,255,255,0.1); padding:30px; border-radius:20px; max-width:600px; margin:20px auto; box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+.btn {padding:12px 30px; margin:10px; border-radius:50px; cursor:pointer; background:gold; color:black; font-weight:bold; border:none;}
+.btn:hover {transform:scale(1.05); box-shadow:0 0 20px #ffd700;}
+.gold {color:#ffd700;}
+.audio-box {position:fixed; top:20px; right:20px; background:rgba(255,255,255,0.1); padding:15px; border-radius:20px;}
+.countdown {font-size:2rem; color:#ffd700; margin-top:20px;}
+.popup {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:999;}
+.popup-content {background:white; color:black; padding:30px; border-radius:20px; text-align:center; max-width:400px;}
+.fade-in {animation:fadeIn 1.5s ease-in;}
+@keyframes fadeIn {from{opacity:0;} to{opacity:1;}}
+</style>
+</head>
+<body>
+
+<!-- Music Controls -->
+<div class="audio-box">
+  <button onclick="playAudio()" class="btn">🎵 Play Romantic Song</button>
+  <button onclick="pauseAudio()" class="btn">⏹ Stop Music</button>
+  <!-- Replace the URL below with your GitHub raw MP3 URL -->
+  <audio id="audio" src="https://raw.githubusercontent.com/yourusername/valentine-site/main/romantic_song.mp3" loop></audio>
+</div>
+
+<!-- Pages -->
+<section id="page1" class="active">
+  <div class="card fade-in">
+    <h1>Manasvi 💖</h1>
+    <p>This Saturday… a magical day awaits.</p>
+    <div class="countdown" id="countdown"></div>
+    <button class="btn" onclick="nextPage()">Next ➡️</button>
+  </div>
+</section>
+
+<section id="page2">
+  <div class="card fade-in">
+    <h2 class="gold">🌞 Phoenix Park Morning Walk</h2>
+    <p>Hand in hand, enjoying nature together.</p>
+    <a href="https://maps.google.com/?q=Phoenix+Park+Dublin" target="_blank" class="btn">Get Directions</a>
+    <button class="btn" onclick="prevPage()">⬅️ Previous</button>
+    <button class="btn" onclick="nextPage()">Next ➡️</button>
+  </div>
+</section>
+
+<section id="page3">
+  <div class="card fade-in">
+    <h2 class="gold">🖼️ National Gallery Visit</h2>
+    <p>Exploring art and making beautiful memories.</p>
+    <a href="https://maps.google.com/?q=National+Gallery+Dublin" target="_blank" class="btn">Get Directions</a>
+    <button class="btn" onclick="prevPage()">⬅️ Previous</button>
+    <button class="btn" onclick="nextPage()">Next ➡️</button>
+  </div>
+</section>
+
+<section id="page4">
+  <div class="card fade-in">
+    <h2 class="gold">🍷 Candlelight Dinner</h2>
+    <p>Romantic dinner evening with warm lights.</p>
+    <a href="https://www.opentable.ie/" target="_blank" class="btn">Book Restaurant</a>
+    <button class="btn" onclick="prevPage()">⬅️ Previous</button>
+    <button class="btn" onclick="nextPage()">Next ➡️</button>
+  </div>
+</section>
+
+<section id="page5">
+  <div class="card fade-in">
+    <h2 class="gold">🌙 Magical Evening Stroll</h2>
+    <p>Walking under fairy lights together.</p>
+    <a href="https://maps.google.com/?q=Dublin+City+Center" target="_blank" class="btn">Get Directions</a>
+    <button class="btn" onclick="prevPage()">⬅️ Previous</button>
+    <button class="btn" onclick="nextPage()">Next ➡️</button>
+  </div>
+</section>
+
+<section id="page6">
+  <div class="card fade-in">
+    <h2 class="gold">💌 Special Surprise</h2>
+    <p>Click below for your surprise 💍</p>
+    <button class="btn" onclick="openPopup()">Reveal 💖</button>
+    <button class="btn" onclick="prevPage()">⬅️ Previous</button>
+  </div>
+</section>
+
+<!-- Proposal Popup -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h2>Manasvi 💍</h2>
+    <p>You are my today and all my tomorrows.<br>Will you be my Valentine?</p>
+    <button class="btn" onclick="closePopup()">Yes ❤️</button>
+  </div>
+</div>
+
+<script>
+// Page Navigation
+let currentPage = 1;
+const totalPages = 6;
+function showPage(n){
+  for(let i=1;i<=totalPages;i++){
+    document.getElementById(`page${i}`).classList.remove('active');
+  }
+  document.getElementById(`page${n}`).classList.add('active');
+}
+function nextPage(){ if(currentPage<totalPages){ currentPage++; showPage(currentPage); }}
+function prevPage(){ if(currentPage>1){ currentPage--; showPage(currentPage); }}
+showPage(currentPage);
+
+// Proposal Popup
+function openPopup(){ document.getElementById('popup').style.display='flex'; }
+function closePopup(){ document.getElementById('popup').style.display='none'; }
+
+// Countdown Timer
+var countDownDate = new Date("Feb 14, 2026 10:00:00").getTime();
+var x = setInterval(function(){
+  var now = new Date().getTime();
+  var distance = countDownDate - now;
+  var days = Math.floor(distance/(1000*60*60*24));
+  var hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+  var minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+  document.getElementById("countdown").innerHTML="Countdown: "+days+"d "+hours+"h "+minutes+"m";
+  if(distance<0){ clearInterval(x); document.getElementById("countdown").innerHTML="Our day has arrived ❤️"; }
+},1000);
+
+// Audio Control
+function playAudio() { document.getElementById('audio').play(); }
+function pauseAudio() { document.getElementById('audio').pause(); }
+</script>
+
+</body>
+</html>
