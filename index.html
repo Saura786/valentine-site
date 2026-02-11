@@ -6,29 +6,18 @@
 <title>Valentine's Day for Manasvi 💖</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-/* Basic Reset */
 * {margin:0; padding:0; box-sizing:border-box;}
 body, html {height:100%; font-family:'Montserrat', sans-serif; background:linear-gradient(135deg,#0f0c29,#302b63,#24243e); color:white; overflow:hidden;}
-
-/* Section Styling */
 section {display:none; height:100vh; width:100vw; justify-content:center; align-items:center; text-align:center; flex-direction:column; padding:20px;}
 section.active {display:flex;}
 .card {background:rgba(255,255,255,0.1); padding:30px; border-radius:20px; max-width:600px; margin:20px auto; box-shadow:0 10px 30px rgba(0,0,0,0.5);}
 .btn {padding:12px 30px; margin:10px; border-radius:50px; cursor:pointer; background:gold; color:black; font-weight:bold; border:none;}
 .btn:hover {transform:scale(1.05); box-shadow:0 0 20px #ffd700;}
 .gold {color:#ffd700;}
-
-/* Audio box */
 .audio-box {position:fixed; top:20px; right:20px; background:rgba(255,255,255,0.1); padding:15px; border-radius:20px;}
-
-/* Countdown */
 .countdown {font-size:2rem; color:#ffd700; margin-top:20px;}
-
-/* Popup */
 .popup {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:999;}
 .popup-content {background:white; color:black; padding:30px; border-radius:20px; text-align:center; max-width:400px;}
-
-/* Fade-in */
 .fade-in {animation:fadeIn 1.5s ease-in;}
 @keyframes fadeIn {from{opacity:0;} to{opacity:1;}}
 </style>
@@ -39,7 +28,7 @@ section.active {display:flex;}
 <div class="audio-box">
   <button onclick="playAudio()" class="btn">🎵 Play Romantic Song</button>
   <button onclick="pauseAudio()" class="btn">⏹ Stop Music</button>
-  <audio id="audio" src="https://github.com/Saura786/valentine-site/releases/download/v1.0/romantic_song.mp3.mp3" loop></audio>
+  <audio id="audio" src="https://docs.google.com/uc?export=download&id=1btEcn4Rz42T-V7NjZOlzrPO_QaF06U-0" loop></audio>
 </div>
 
 <!-- Pages -->
@@ -141,10 +130,25 @@ var x = setInterval(function(){
 },1000);
 
 // Audio Control
-function playAudio() { document.getElementById('audio').play(); }
-function pauseAudio() { document.getElementById('audio').pause(); }
+var audio = document.getElementById('audio');
+audio.load(); // preload audio
+
+function playAudio() {
+  audio.play().catch(function(){
+      alert("Click anywhere on the page to start the romantic music!");
+  });
+}
+
+function pauseAudio() { audio.pause(); }
+
+// Play audio on first click anywhere (for browser autoplay restrictions)
+document.body.addEventListener('click', function() {
+    audio.play().catch(function(){});
+}, {once:true});
+
 </script>
 
 </body>
 </html>
+
 
