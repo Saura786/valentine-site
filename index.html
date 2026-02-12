@@ -7,52 +7,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 * {margin:0; padding:0; box-sizing:border-box;}
-body, html {
-  height:100%;
-  font-family:'Montserrat', sans-serif;
-  overflow:hidden;
-  background: linear-gradient(135deg, #FF4E50, #FC913A, #FF6B6B);
-  color:white;
-}
+body, html {height:100%; font-family:'Montserrat', sans-serif; overflow:hidden;}
+
+/* Video background */
+#bg-video {position:fixed; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:-1; filter:brightness(0.7);}
 
 /* Loading overlay */
-#loading {
-  position:fixed; top:0; left:0; width:100%; height:100%;
-  background: rgba(0,0,0,0.7); display:flex; justify-content:center; align-items:center;
-  flex-direction:column; color:white; font-size:2rem; z-index:1000;
-}
+#loading {position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.7); display:flex; justify-content:center; align-items:center; flex-direction:column; color:white; font-size:2rem; z-index:1000;}
 #loading span {animation:blink 1s infinite;}
 @keyframes blink {0%,100%{opacity:1;}50%{opacity:0;}}
 
-/* Hearts animation */
-.heart {
-  position: absolute; width: 20px; height: 20px; background: red;
-  transform: rotate(-45deg); animation: floatUp linear infinite;
-}
-.heart:before, .heart:after {
-  content:""; position:absolute; width:20px; height:20px; background:red; border-radius:50%;
-}
+/* Hearts & sparkles */
+.heart {position:absolute; width:20px; height:20px; background:red; transform:rotate(-45deg); animation:floatUp linear infinite;}
+.heart:before, .heart:after {content:""; position:absolute; width:20px; height:20px; background:red; border-radius:50%;}
 .heart:before { top:-10px; left:0; }
 .heart:after { top:0; left:10px; }
 @keyframes floatUp {0% {transform: translateY(0) rotate(-45deg); opacity:1;} 100% {transform: translateY(-800px) rotate(-45deg); opacity:0;}}
-
-/* Sparkles */
-.sparkle {
-  position: absolute; width: 5px; height: 5px; background: white; border-radius: 50%; opacity: 0.8;
-  animation: sparkle 2s infinite;
-}
+.sparkle {position:absolute; width:5px; height:5px; background:white; border-radius:50%; opacity:0.8; animation:sparkle 2s infinite;}
 @keyframes sparkle {0% {opacity:0.8;} 50%{opacity:0;} 100%{opacity:0.8;}}
 
 /* Sections */
 section {display:none; height:100vh; width:100vw; justify-content:center; align-items:center; text-align:center; flex-direction:column; padding:20px;}
 section.active {display:flex;}
-.card {
-  background: rgba(255, 80, 80, 0.2);
-  backdrop-filter: blur(15px);
-  padding:30px; border-radius:20px;
-  max-width:600px; margin:20px auto;
-  box-shadow:0 10px 40px rgba(255, 80, 80, 0.5);
-}
+.card {background: rgba(255,80,80,0.2); backdrop-filter: blur(15px); padding:30px; border-radius:20px; max-width:600px; margin:20px auto; box-shadow:0 10px 40px rgba(255,80,80,0.5);}
 .btn {padding:12px 30px; margin:10px; border-radius:50px; cursor:pointer; background:#FF3B3F; color:white; font-weight:bold; border:none;}
 .btn:hover {transform:scale(1.05); box-shadow:0 0 20px #FF0000;}
 .gold {color:#FF0000;}
@@ -66,7 +43,12 @@ section.active {display:flex;}
 </head>
 <body>
 
-<!-- Loading Overlay -->
+<!-- Background video -->
+<video autoplay muted loop id="bg-video">
+  <source src="https://cdn.pixabay.com/vimeo/502774547/pexels-sunset.mp4" type="video/mp4">
+</video>
+
+<!-- Loading overlay -->
 <div id="loading">
   <p>Loading your magical Valentine 💖</p>
   <span>✨✨✨</span>
@@ -74,22 +56,8 @@ section.active {display:flex;}
 
 <!-- Floating hearts and sparkles -->
 <script>
-for(let i=0;i<30;i++){
-  let heart=document.createElement("div"); heart.className="heart";
-  heart.style.left=Math.random()*100+"%";
-  heart.style.animationDuration=3+Math.random()*5+"s";
-  heart.style.animationDelay=Math.random()*5+"s";
-  document.body.appendChild(heart);
-}
-for(let i=0;i<40;i++){
-  let sp=document.createElement("div"); sp.className="sparkle";
-  sp.style.left=Math.random()*100+"%";
-  sp.style.top=Math.random()*100+"%";
-  sp.style.width=(2+Math.random()*3)+"px";
-  sp.style.height=(2+Math.random()*3)+"px";
-  sp.style.animationDuration=(1+Math.random()*2)+"s";
-  document.body.appendChild(sp);
-}
+for(let i=0;i<30;i++){let h=document.createElement("div"); h.className="heart"; h.style.left=Math.random()*100+"%"; h.style.animationDuration=3+Math.random()*5+"s"; h.style.animationDelay=Math.random()*5+"s"; document.body.appendChild(h);}
+for(let i=0;i<40;i++){let s=document.createElement("div"); s.className="sparkle"; s.style.left=Math.random()*100+"%"; s.style.top=Math.random()*100+"%"; s.style.width=(2+Math.random()*3)+"px"; s.style.height=(2+Math.random()*3)+"px"; s.style.animationDuration=(1+Math.random()*2)+"s"; document.body.appendChild(s);}
 </script>
 
 <!-- Music Controls -->
@@ -168,10 +136,9 @@ for(let i=0;i<40;i++){
 </div>
 
 <script>
-// Page Navigation
+// Page navigation
 let currentPage=1; const totalPages=6;
-function showPage(n){for(let i=1;i<=totalPages;i++){document.getElementById(`page${i}`).classList.remove('active');}
-document.getElementById(`page${n}`).classList.add('active');}
+function showPage(n){for(let i=1;i<=totalPages;i++){document.getElementById(`page${i}`).classList.remove('active');} document.getElementById(`page${n}`).classList.add('active');}
 function nextPage(){if(currentPage<totalPages){currentPage++; showPage(currentPage);}}
 function prevPage(){if(currentPage>1){currentPage--; showPage(currentPage);}}
 showPage(currentPage);
@@ -195,7 +162,7 @@ function playAudio(){audio.muted=false; audio.play();}
 function pauseAudio(){audio.pause();}
 document.body.addEventListener('click',function(){audio.muted=false; audio.play();},{once:true});
 
-// Hide loading overlay when audio is ready
+// Hide loading overlay when audio can play
 audio.addEventListener('canplaythrough',function(){
   document.getElementById('loading').style.display='none';
 });
@@ -203,6 +170,8 @@ audio.addEventListener('canplaythrough',function(){
 
 </body>
 </html>
+
+
 
 
 
